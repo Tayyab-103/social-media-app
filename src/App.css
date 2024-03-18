@@ -10,3 +10,18 @@ display: flex;
 .sidebar{
   min-height: 695px;
 }
+
+/* post Component */
+.post-card{
+ 
+  margin: 20px 50px;
+}
+
+.hashtag{
+  margin: 2px;
+}
+
+.reactions{
+
+  margin-top: 10px;
+}
