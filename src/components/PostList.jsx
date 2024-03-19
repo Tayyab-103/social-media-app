@@ -4,7 +4,7 @@ import { PostList as PostListData } from "../store/post-list-store";
 
 const PostList = () => {
   const { postList } = useContext(PostListData);
-  console.log(postList,"Post Update")
+  // console.log(postList,"Post Update")
   return (
     <>
       {postList.map((post) => (
