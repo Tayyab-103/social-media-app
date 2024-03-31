@@ -3,6 +3,7 @@ import { createContext, useReducer } from "react";
 export const PostList = createContext({
   postList: [],
   addPost: () => {},
+  addInitialPosts: () => {},
   deletePost: () => {},
 });
 
@@ -13,6 +14,8 @@ const postListReducer = (currentPostList, action) => {
     newPostList = currentPostList.filter(
       (post) => post.id !== action.payload.postId
     );
+  } else if (action.type === "ADD_INITIAL_POSTS") {
+    newPostList = action.payload.posts
   } else if (action.type === "ADD_POST") {
     newPostList = [action.payload, ...currentPostList];
   }
@@ -24,7 +27,7 @@ const PostListProvider = ({ children }) => {
 
   const [postList, dispatchPostList] = useReducer(
     postListReducer,
-    DEFAULT_POST_LIST
+    []
   );
 
   const addPost = (userId, postTitle, postBody, reactions, tags) => {
@@ -40,6 +43,14 @@ const PostListProvider = ({ children }) => {
       },
     });
   };
+  const addInitialPosts = (posts) => {
+    dispatchPostList({
+      type: "ADD_INITIAL_POSTS",
+      payload: {
+        posts
+      },
+    });
+  };
   // const deletePost = (postId) => {
   //   console.log(`Delete Post Called for ${postId}`)
   // };
@@ -52,29 +63,29 @@ const PostListProvider = ({ children }) => {
     });
   };
   return (
-    <PostList.Provider value={{ postList, addPost, deletePost }}>
+    <PostList.Provider value={{ postList, addPost, addInitialPosts,deletePost }}>
       {children}
     </PostList.Provider>
   );
 };
 
-const DEFAULT_POST_LIST = [
-  {
-    id: "1",
-    title: "Going to Pakistan",
-    body: "Hi Friends, I am going to Pakistan for my vacations, Hope to Enjoy a lot. Peace out",
-    reactions: 2,
-    userId: "user-9",
-    tags: ["vacation", "Pakistan", "Enjoying"],
-  },
-  {
-    id: "2",
-    title: "Pass ho gaye bhai",
-    body: "char saal ki masti ky baad bi ho gaye hy pass",
-    reactions: 100,
-    userId: "user-12",
-    tags: ["Graduating", "Unbelievable"],
-  },
-];
+// const DEFAULT_POST_LIST = [
+//   {
+//     id: "1",
+//     title: "Going to Pakistan",
+//     body: "Hi Friends, I am going to Pakistan for my vacations, Hope to Enjoy a lot. Peace out",
+//     reactions: 2,
+//     userId: "user-9",
+//     tags: ["vacation", "Pakistan", "Enjoying"],
+//   },
+//   {
+//     id: "2",
+//     title: "Pass ho gaye bhai",
+//     body: "char saal ki masti ky baad bi ho gaye hy pass",
+//     reactions: 100,
+//     userId: "user-12",
+//     tags: ["Graduating", "Unbelievable"],
+//   },
+// ];
 
 export default PostListProvider;
