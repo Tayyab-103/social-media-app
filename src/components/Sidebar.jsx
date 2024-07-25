@@ -23,7 +23,7 @@ const Sidebar = ({ selectedTab, setSelectedTab }) => {
             }}
           >
             <a
-              href="#"
+              href="/"
               className={`nav-link text-white ${
                 selectedTab === "Home" && "active"
               }  `}
