@@ -16,13 +16,18 @@ const PostList = () => {
     const controller = new AbortController();
     const signal = controller.signal;
     fetch("https://dummyjson.com/posts", { signal })
-      .then((res) => res.json())
-      .then((data) => {
-        addInitialPosts(data.posts);
-        setLoading(false);
-        // console.log("fetch returned");
-      });
-    // console.log("fetch ended");
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data.posts); // Log the data to inspect it
+      addInitialPosts(data.posts);
+      setLoading(false);
+    })
+    .catch((error) => {
+      if (error.name !== "AbortError") {
+        console.error("Fetch error:", error);
+      }
+      setLoading(false);
+    });
 
     return () => {
       console.log("Cleaning the useEffect");

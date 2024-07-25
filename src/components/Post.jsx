@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { MdDelete } from "react-icons/md";
 import { PostList } from "../store/post-list-store";
 const Post = ({ post }) => {
+
+  console.log("Posts", post)
   const { deletePost } = useContext(PostList);
   return (
     <div className="card post-card" style={{ width: "30rem" }}>
@@ -22,8 +24,8 @@ const Post = ({ post }) => {
             #{tag}
           </span>
         ))}
-        <div className="alert alert-success reactions" role="alert">
-          This Post has been reacted by {post.reactions} people
+       <div className="alert alert-success reactions" role="alert">
+          This post has {post.reactions.likes} likes and {post.reactions.dislikes} dislikes.
         </div>
       </div>
     </div>
