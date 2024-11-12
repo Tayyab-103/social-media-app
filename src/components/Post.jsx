@@ -2,8 +2,7 @@ import { useContext } from "react";
 import { MdDelete } from "react-icons/md";
 import { PostList } from "../store/post-list-store";
 const Post = ({ post }) => {
-
-  console.log("Posts", post)
+  console.log("Posts", post);
   const { deletePost } = useContext(PostList);
   return (
     <div className="card post-card" style={{ width: "30rem" }}>
@@ -12,6 +11,7 @@ const Post = ({ post }) => {
           {post.title}
           <span
             className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+            style={{ cursor: "pointer" }}
             onClick={() => deletePost(post.id)}
           >
             <MdDelete />
@@ -24,8 +24,9 @@ const Post = ({ post }) => {
             #{tag}
           </span>
         ))}
-       <div className="alert alert-success reactions" role="alert">
-          This post has {post.reactions.likes} likes and {post.reactions.dislikes} dislikes.
+        <div className="alert alert-success reactions" role="alert">
+          This post has {post.reactions.likes} likes and{" "}
+          {post.reactions.dislikes} dislikes.
         </div>
       </div>
     </div>
